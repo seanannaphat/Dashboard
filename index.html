@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">📊</span>
+                    <span class="logo-text">DashBoard</span>
+                </div>
+                <button class="sidebar-close" id="sidebarClose">✕</button>
+            </div>
+
+            <nav class="menu">
+                <a href="#" class="menu-item active" data-menu="dashboard">
+                    <span class="menu-icon">📈</span>
+                    <span class="menu-text">Dashboard</span>
+                </a>
+                <a href="#" class="menu-item" data-menu="users">
+                    <span class="menu-icon">👥</span>
+                    <span class="menu-text">Users</span>
+                </a>
+                <a href="#" class="menu-item" data-menu="orders">
+                    <span class="menu-icon">📦</span>
+                    <span class="menu-text">Orders</span>
+                </a>
+                <a href="#" class="menu-item" data-menu="products">
+                    <span class="menu-icon">🛍️</span>
+                    <span class="menu-text">Products</span>
+                </a>
+                <a href="#" class="menu-item" data-menu="settings">
+                    <span class="menu-icon">⚙️</span>
+                    <span class="menu-text">Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-wrapper">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <button class="hamburger" id="hamburger">☰</button>
+                
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="searchInput" 
+                        placeholder="Search orders, users, products..."
+                    >
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="notification-btn">
+                        🔔
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                        ☀️
+                    </button>
+
+                    <div class="user-profile">
+                        <div class="avatar">👤</div>
+                        <div class="user-info">
+                            <div class="user-name">John Doe</div>
+                            <div class="user-role">Admin</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- KPI Cards -->
+                <section class="kpi-section">
+                    <div class="kpi-card">
+                        <div class="kpi-icon revenue">💰</div>
+                        <div class="kpi-content">
+                            <div class="kpi-label">Revenue</div>
+                            <div class="kpi-value" id="kpiRevenue">$45,230</div>
+                            <div class="kpi-change positive">+12.5% vs last month</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon orders">📦</div>
+                        <div class="kpi-content">
+                            <div class="kpi-label">Orders</div>
+                            <div class="kpi-value" id="kpiOrders">1,240</div>
+                            <div class="kpi-change positive">+8.2% vs last month</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon users">👥</div>
+                        <div class="kpi-content">
+                            <div class="kpi-label">Users</div>
+                            <div class="kpi-value" id="kpiUsers">3,850</div>
+                            <div class="kpi-change negative">-2.1% vs last month</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon conversion">📊</div>
+                        <div class="kpi-content">
+                            <div class="kpi-label">Conversion</div>
+                            <div class="kpi-value" id="kpiConversion">3.24%</div>
+                            <div class="kpi-change positive">+0.48% vs last month</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Controls -->
+                <section class="controls-section">
+                    <button class="btn btn-primary" id="refreshBtn">🔄 Refresh Data</button>
+                </section>
+
+                <!-- Charts Section -->
+                <section class="chart-section">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Sales Overview</h3>
+                        <div class="chart-container">
+                            <canvas id="chartCanvas"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Table -->
+                <section class="table-section">
+                    <div class="table-card">
+                        <h3 class="table-title">Recent Orders</h3>
+                        
+                        <div class="table-controls">
+                            <div class="sort-control">
+                                <label>Sort by:</label>
+                                <select id="sortSelect">
+                                    <option value="date">Date</option>
+                                    <option value="amount">Amount</option>
+                                    <option value="customer">Customer</option>
+                                </select>
+                                <button id="sortOrder" class="sort-btn">↑ Ascending</button>
+                            </div>
+                        </div>
+
+                        <table class="data-table" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Product</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td>#ORD-001</td>
+                                    <td>Alice Johnson</td>
+                                    <td>Laptop Pro</td>
+                                    <td>$1,299</td>
+                                    <td><span class="status-badge completed">Completed</span></td>
+                                    <td>2025-02-08</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-002</td>
+                                    <td>Bob Smith</td>
+                                    <td>Wireless Mouse</td>
+                                    <td>$45</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>2025-02-08</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-003</td>
+                                    <td>Carol White</td>
+                                    <td>USB-C Hub</td>
+                                    <td>$89</td>
+                                    <td><span class="status-badge shipped">Shipped</span></td>
+                                    <td>2025-02-07</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-004</td>
+                                    <td>David Brown</td>
+                                    <td>Mechanical Keyboard</td>
+                                    <td>$159</td>
+                                    <td><span class="status-badge completed">Completed</span></td>
+                                    <td>2025-02-07</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-005</td>
+                                    <td>Emma Davis</td>
+                                    <td>4K Monitor</td>
+                                    <td>$599</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>2025-02-06</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-006</td>
+                                    <td>Frank Miller</td>
+                                    <td>Laptop Stand</td>
+                                    <td>$79</td>
+                                    <td><span class="status-badge completed">Completed</span></td>
+                                    <td>2025-02-06</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Activity Section -->
+                <section class="activity-section">
+                    <div class="activity-card">
+                        <h3 class="activity-title">Recent Activity</h3>
+                        <div class="activity-list" id="activityList">
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background-color: #e3f2fd;">📦</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">Order #ORD-006 was completed</div>
+                                    <div class="activity-time">5 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background-color: #f3e5f5;">👤</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">New user registered: Sarah Anderson</div>
+                                    <div class="activity-time">12 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background-color: #e8f5e9;">💳</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">Payment received from Bob Smith</div>
+                                    <div class="activity-time">25 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background-color: #fff3e0;">📈</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">Sales reached $45,230 this month</div>
+                                    <div class="activity-time">1 hour ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background-color: #fce4ec;">🎉</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">Project milestone reached: 3,850 users</div>
+                                    <div class="activity-time">2 hours ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
